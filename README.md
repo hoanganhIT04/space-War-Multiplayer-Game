@@ -1,21 +1,31 @@
-# 🚀 Space War – Multiplayer Game (LAN)
+# 🚀 Space War – Multiplayer Game (Java Socket, LAN)
 
-Space War là một game bắn tàu vũ trụ multiplayer thời gian thực, được phát triển bằng **Java (Swing + Socket)** theo mô hình **Client – Server**, hỗ trợ kết nối **LAN / IP**, có chat trong game và hệ thống gameplay realtime.
+## 1. Giới thiệu
+
+**Space War** là một game bắn tàu vũ trụ nhiều người chơi (multiplayer) được xây dựng bằng **Java Swing** kết hợp **Java Socket**, triển khai theo mô hình **Client – Server** trong môi trường mạng **LAN**.
+
+Game cho phép nhiều người chơi kết nối vào cùng một phòng chơi, đồng bộ trạng thái theo **thời gian thực**, đồng thời hỗ trợ **chat trực tiếp trong game** nhằm tăng tính tương tác giữa các người chơi.
+
+Dự án được thực hiện với mục tiêu học tập và nghiên cứu các kỹ thuật:
+- Lập trình mạng
+- Xử lý đa luồng
+- Đồng bộ dữ liệu thời gian thực
+- Xây dựng game multiplayer cơ bản
 
 ---
 
-## 🎮 TÍNH NĂNG CHÍNH
+## 2. Tính năng chính
 
 ### 🕹 Gameplay
-- Điều khiển tàu vũ trụ di chuyển, bắn đạn và kỹ năng
-- Hệ thống máu (HP), kỹ năng có cooldown
-- Xử lý va chạm, thắng / thua
+- Điều khiển tàu vũ trụ di chuyển, bắn đạn và sử dụng kỹ năng
+- Hệ thống máu (HP) và kỹ năng có thời gian hồi (cooldown)
+- Xử lý va chạm và trạng thái thắng / thua
 - Gameplay realtime nhiều người chơi
 
 ### 🌐 Multiplayer (Client – Server)
 - Kết nối server qua **LAN Broadcast** hoặc **IP thủ công**
-- Server quản lý trạng thái player
-- Đồng bộ vị trí, đạn, kỹ năng giữa các client
+- Server quản lý trạng thái người chơi
+- Đồng bộ vị trí, hành động, đạn và kỹ năng
 - Hỗ trợ nhiều client cùng lúc
 
 ### 💬 In-game Chat
@@ -28,11 +38,11 @@ Space War là một game bắn tàu vũ trụ multiplayer thời gian thực, đ
 
 ---
 
-## ⌨️ ĐIỀU KHIỂN
+## 3. Điều khiển trong game
 
 ### 🎮 Di chuyển
 - **W / A / S / D** : Di chuyển tàu
-- **Chuột** : Hướng bắn
+- **Chuột** : Điều hướng và ngắm bắn
 - **Chuột trái** : Bắn thường
 - **Chuột phải** : Kỹ năng đặc biệt
 
@@ -43,41 +53,69 @@ Space War là một game bắn tàu vũ trụ multiplayer thời gian thực, đ
 
 ### 💬 Chat
 - **T** : Mở chat
-- **ENTER** : Gửi chat
+- **ENTER** : Gửi tin nhắn
 - **BACKSPACE** : Xoá ký tự
 - **Q** : Huỷ chat
 
 ---
 
-## 🧩 KIẾN TRÚC HỆ THỐNG
+## 4. Công nghệ sử dụng
 
-### 📌 Mô hình
+### Ngôn ngữ & nền tảng
+- **Java (JDK 21)**
+- **Java Swing** – xây dựng giao diện đồ họa
+- **Java Socket (TCP)** – giao tiếp mạng Client – Server
 
+### Kỹ thuật chính
+- Mô hình **Client – Server**
+- TCP Socket trong mạng LAN
+- Đa luồng (Multithreading)
+- Đồng bộ trạng thái game theo thời gian thực
+- Broadcast dữ liệu và tin nhắn chat
+- Xử lý âm thanh với `javax.sound.sampled`
 
-### 📂 Thành phần
-- **Game Server**  
-  - Quản lý player
-  - Đồng bộ gameplay
-- **Chat Server**  
-  - Gửi / nhận tin nhắn realtime
-- **Client**
-  - Render game (Swing)
-  - Xử lý input
-  - Gửi / nhận dữ liệu mạng
+---
+
+## 5. Kiến trúc hệ thống
+
+Hệ thống bao gồm **2 Server độc lập**:
+
+### 🖥 Game Server
+- Quản lý kết nối người chơi
+- Nhận và broadcast dữ liệu trạng thái game
+- Đồng bộ vị trí, hành động và kỹ năng của người chơi
+
+### 💬 Chat Server
+- Xử lý riêng chức năng chat
+- Broadcast tin nhắn chat đến toàn bộ client
+- Không ảnh hưởng đến luồng dữ liệu gameplay
+
+### 🎮 Client
+- Render game bằng Java Swing
+- Xử lý input từ người chơi
+- Gửi / nhận dữ liệu game và chat từ server
 
 ---
 
-## 🛠 CÔNG NGHỆ SỬ DỤNG
+## 6. Môi trường kết nối
 
-- **Ngôn ngữ**: Java
-- **UI**: Java Swing
-- **Network**:
-  - TCP Socket (game & chat)
-  - UDP Broadcast (tìm server LAN)
-- **Âm thanh**: Java Sound API
-- **Đa luồng**: Thread
+- Các máy **Client và Server phải cùng mạng LAN / cùng WiFi**
+- Kết nối thông qua **IPv4 Address + Port**
+
+### Thông số kết nối
+- **IPv4 Address**: IP của máy chạy Server  
+  (ví dụ: `192.168.100.121`)
+- **Port Game Server**: `4004`
+- **Port Chat Server**: `4005`
 
 ---
+
+## 7. Hướng dẫn chạy project
+
+⚠️ **Lưu ý:** Hệ thống sử dụng mô hình Client – Server, vì vậy **bắt buộc phải chạy Server trước Client**.
+
+---
+
 
 ## ▶️ HƯỚNG DẪN CHẠY PROJECT
 
