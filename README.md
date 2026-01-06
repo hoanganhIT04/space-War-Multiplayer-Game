@@ -91,6 +91,18 @@ Chat Server chịu trách nhiệm xử lý chat realtime giữa các client.
 
 ```bash
 Run file ChatServer.java
+```
+### 2️⃣ Chạy Game Server
+
+Game Server quản lý gameplay và đồng bộ trạng thái người chơi.
+
+```bash
 Run file ServerWindow.java
+```
+### 3️⃣ Chạy Client
+
+Sau khi Chat Server và Game Server đã chạy thành công:
+
+```bash
 Run file ServerWindow.java
 
